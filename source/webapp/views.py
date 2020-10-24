@@ -1,17 +1,12 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.http import HttpResponse, HttpResponseForbidden, Http404
-from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import redirect, get_object_or_404
 from django.views.generic.base import View
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.views import APIView
-
 from webapp.forms import PhotoForm
 from webapp.models import Photo, Favorites
-from webapp.serializers import FavoriteSerializer
+
 
 
 class PhotoListView(ListView):
