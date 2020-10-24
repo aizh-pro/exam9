@@ -29,10 +29,10 @@
         {% endfor %}
         {% if user.is_authenticated %}
                     <p>
-{#                        {% with photo|liked_by:user as liked %}#}
-                            <a class="{% if liked %}hidden{% endif %} like" href="{% url 'webapp:photo_like' photo.pk %}">Add to favorites</a>
-{#                            <a class="{% if not liked %}hidden{% endif %} unlike" href="{% url 'webapp:photo_unlike' photo.pk %}">Remove from favorites</a>#}
-{#                        {% endwith %}#}
+                        {% with photo|liked_by:user as liked %}
+                        <a class="{% if liked %}hidden{% endif %} like" href="{% url 'webapp:photo_like' photo.pk %}">Add to favorites</a> </p>
+                          <p></p>  <a class="{% if not liked %}hidden{% endif %} unlike" href="{% url 'webapp:photo_unlike' photo.pk %}">Remove from favorites</a>
+                        {% endwith %}
                     </p>
         {% endif %}
 

@@ -83,8 +83,11 @@ class PhotoAddFavoritesView(LoginRequiredMixin, View):
 class PhotoRemoveFavoritesView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         photo = get_object_or_404(Photo, pk=kwargs.get('pk'))
-        like = get_object_or_404(photo.likes, user=request.user)
-        like.delete()
-        photo.like_count -= 1
-        photo.save()
-        return HttpResponse(photo.like_count)
+        if request.user in photo.who_likes.all():
+            photo.who_likes.remove(request.user)
+            print("DEBUG")
+            print(photo)
+            photo.save()
+            return HttpResponse({'message': "Removed"})
+        else:
+            return HttpResponseForbidden()

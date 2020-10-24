@@ -1,7 +1,7 @@
 from django.urls import path, include
 
 from webapp.views import PhotoListView, PhotoView, PhotoCreateView, PhotoUpdateView, PhotoDeleteView, \
-    PhotoAddFavoritesView
+    PhotoAddFavoritesView, PhotoRemoveFavoritesView
 
 app_name = 'webapp'
 
@@ -19,9 +19,8 @@ urlpatterns = [
             path('', PhotoView.as_view(), name='photo_view'),
             path('update/', PhotoUpdateView.as_view(), name='photo_update'),
             path('delete/', PhotoDeleteView.as_view(), name='photo_delete'),
-            # path('add-to-cart/', CartAddView.as_view(), name='product_add_to_cart'),
             path('like/', PhotoAddFavoritesView.as_view(), name='photo_like'),
-            # path('unlike/', ArticleUnLikeView.as_view(), name='article_unlike'),
+            path('unlike/', PhotoRemoveFavoritesView.as_view(), name='photo_unlike'),
         ])),
     ])),
 ]
