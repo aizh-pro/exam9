@@ -1,0 +1,110 @@
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$1YFjwGcfe8Ky$OreQvDVjXuM2eM2CFNIjyNT8Wk1Q/cuMIUIo2pJryXc=",
+    "last_login": null,
+    "is_superuser": true,
+    "username": "\u0444admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2020-10-24T05:44:57.914Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$a0usu9Nj0bzd$gw89zfch0iElnt5kbgvF3O6L2uK9mQgSTpzEhiKIl0c=",
+    "last_login": "2020-10-24T10:29:18.907Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2020-10-24T06:45:37.530Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$mwR34KFYKNyF$4zZo1E0pUz/vW8N9y3Kf4p0CaOIeUs96YDo4GgZTR08=",
+    "last_login": "2020-10-24T10:29:38.035Z",
+    "is_superuser": false,
+    "username": "manager",
+    "first_name": "manager",
+    "last_name": "managerLastName",
+    "email": "manager@test.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2020-10-24T08:33:44.623Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "webapp.photo",
+  "pk": 1,
+  "fields": {
+    "photo": "user_pics/pexels-artem-beliaikin-853199.jpg",
+    "description": "Nature",
+    "created_at": "2020-10-24T06:46:33.058Z",
+    "author": 2,
+    "who_likes": [
+      2
+    ]
+  }
+},
+{
+  "model": "webapp.photo",
+  "pk": 2,
+  "fields": {
+    "photo": "user_pics/pizza.jpg",
+    "description": "Pizza",
+    "created_at": "2020-10-24T06:47:24.906Z",
+    "author": 2,
+    "who_likes": [
+      3
+    ]
+  }
+},
+{
+  "model": "webapp.photo",
+  "pk": 3,
+  "fields": {
+    "photo": "user_pics/toy.jpg",
+    "description": "Toy",
+    "created_at": "2020-10-24T08:09:17.051Z",
+    "author": 2,
+    "who_likes": [
+      2
+    ]
+  }
+},
+{
+  "model": "webapp.photo",
+  "pk": 5,
+  "fields": {
+    "photo": "user_pics/toy_3iQAPxP.jpg",
+    "description": "Toy2",
+    "created_at": "2020-10-24T08:34:18.875Z",
+    "author": 3,
+    "who_likes": [
+      1,
+      2,
+      3
+    ]
+  }
+}
+]

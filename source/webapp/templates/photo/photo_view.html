@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
+{% load likes %}
 
 {% block title %}View{% endblock %}
 
 {% block menu %}
-{#    {% if perms.webapp.change_article or article.author == request.user %}#}
-{#        <li><a href="{% url 'webapp:article_update' article.pk %}">Update</a></li>#}
-{#    {% endif %}#}
-{#    {% if perms.webapp.delete_article or article.author == request.user %}#}
+    {% if perms.webapp.change_photo or photo.author == request.user %}
+        <li><a href="{% url 'webapp:photo_update' photo.pk %}">Update</a></li>
+    {% endif %}
+    {% if perms.webapp.delete_photo or photo.author == request.user %}
         <li><a href="{% url 'webapp:photo_delete' photo.pk %}">Delete</a></li>
-{#    {% endif %}#}
+    {% endif %}
 {#    <li><a href="{% url 'webapp:article_comment_add' article.pk %}">Add Comment</a></li>#}
 {% endblock %}
 
@@ -21,16 +22,19 @@
 {#            <a href="{% url 'accounts:detail' article.author_id %}">{{ article.author }}</a>#}
             | {{ photo.created_at|date:"d.m.Y H:i:s" }}
         </p>
-
-{#        {% if user.is_authenticated %}#}
-{#                    <p>#}
-{#                        <span class="counter">{{ article.like_count }} Likes</span>#}
-{#                        {% with article|liked_by:user as liked %}#}
-{#                            <a class="{% if liked %}hidden{% endif %} like" href="{% url 'webapp:article_like' article.pk %}">Like</a>#}
-{#                            <a class="{% if not liked %}hidden{% endif %} unlike" href="{% url 'webapp:article_unlike' article.pk %}">Unlike</a>#}
+    {%  for i in  photo.who_likes.all %}
+        <p>
+            {{ i }}
+        </p>
+        {% endfor %}
+        {% if user.is_authenticated %}
+                    <p>
+{#                        {% with photo|liked_by:user as liked %}#}
+                            <a class="{% if liked %}hidden{% endif %} like" href="{% url 'webapp:photo_like' photo.pk %}">Add to favorites</a>
+{#                            <a class="{% if not liked %}hidden{% endif %} unlike" href="{% url 'webapp:photo_unlike' photo.pk %}">Remove from favorites</a>#}
 {#                        {% endwith %}#}
-{#                    </p>#}
-{#        {% endif %}#}
+                    </p>
+        {% endif %}
 
 {#        <h3>Comments:</h3>#}
 {#        {% if is_paginated %}#}
