@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+ {% block search %}
+    <div class="search-form">
+ <form class="form-inline" action="{% url 'webapp:index' %}" method="GET">
+
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"   {{ search_form.search }}>
+    <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+
+    </div>
+{% endblock %}
+{% block content %}
+   <h1>Photo Gallery</h1>
+    {% if is_paginated %}
+   {% include 'partial/pagination.html' %}
+    {% endif %}
+   {% for photo in photos %}
+{#        <h2><a href="{% url 'webapp:task_view' task.pk %}">{{ task.pk }}.{{ task.title }}</a></h2>#}
+        <p>Author: {{ photo.author }}</p>
+    <p>Signature:{{ photo.description }} | Created at:{{ photo.created_at }}</p>
+       <p>{{ photo.photo.url }}</p>
+{#    <p><a href="{% url 'webapp:task_view' task.pk %}">Подробнее</a></p>#}
+{#        {% if perms.webapp.change_task and request.user in project.user.all%}#}
+{#    <p><a href="{% url 'webapp:task_update' task.pk %}">Update</a></p>#}
+{#        {% endif %}#}
+   {% endfor %}
+      {% if is_paginated %}
+   {% include 'partial/pagination.html' %}
+    {% endif %}
+{% endblock %}
