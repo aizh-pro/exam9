@@ -20,7 +20,7 @@
     <p>Signature:{{ photo.description }} | Created at:{{ photo.created_at }}</p>
        <h4><a href="{% url "webapp:photo_view" photo.pk %}">{{ photo.description }}</a></h4>
           <img src="{{ photo.photo.url }}" alt="img" width="250" height="250">
-    <p><a href="{% url 'webapp:photo_view' photo.pk %}">Подробнее</a></p>
+    <p><a class="btn btn-success my-2 my-sm-0" href="{% url 'webapp:photo_view' photo.pk %}">Подробнее</a></p>
 {#        {% if perms.webapp.change_task and request.user in project.user.all%}#}
     <p><a href="{% url 'webapp:photo_update' photo.pk %}">Update</a></p>
 {#        {% endif %}#}

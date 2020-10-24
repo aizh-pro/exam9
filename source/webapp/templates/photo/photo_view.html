@@ -10,7 +10,6 @@
     {% if perms.webapp.delete_photo or photo.author == request.user %}
         <li><a href="{% url 'webapp:photo_delete' photo.pk %}">Delete</a></li>
     {% endif %}
-{#    <li><a href="{% url 'webapp:article_comment_add' article.pk %}">Add Comment</a></li>#}
 {% endblock %}
 
 {% block content %}
@@ -22,17 +21,17 @@
 {#            <a href="{% url 'accounts:detail' article.author_id %}">{{ article.author }}</a>#}
             | {{ photo.created_at|date:"d.m.Y H:i:s" }}
         </p>
-    {%  for i in  photo.who_likes.all %}
+    {%  for i in  photo.likes.all %}
         <p>
-            {{ i }}
+            <a href="{% url 'accounts:detail' i.user_id %}">{{ i }}</a>
         </p>
         {% endfor %}
         {% if user.is_authenticated %}
                     <p>
-                        {% with photo|liked_by:user as liked %}
+
                         <a class="{% if liked %}hidden{% endif %} like" href="{% url 'webapp:photo_like' photo.pk %}">Add to favorites</a> </p>
                           <p></p>  <a class="{% if not liked %}hidden{% endif %} unlike" href="{% url 'webapp:photo_unlike' photo.pk %}">Remove from favorites</a>
-                        {% endwith %}
+
                     </p>
         {% endif %}
 
@@ -63,8 +62,7 @@
 {#                    </p>#}
 {#                {% endif %}#}
 {#            </div>#}
-{#        {% empty %}#}
-{#            <p>Нет комментариев</p>#}
+
 {#        {% endfor %}#}
 {#        {% if is_paginated %}#}
 {#            {% include 'partial/pagination.html' %}#}

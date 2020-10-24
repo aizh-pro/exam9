@@ -1,13 +1,17 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseForbidden, Http404
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import redirect, get_object_or_404
 from django.views.generic.base import View
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from webapp.forms import PhotoForm
-from webapp.models import Photo
+from webapp.models import Photo, Favorites
+from webapp.serializers import FavoriteSerializer
 
 
 class PhotoListView(ListView):
@@ -70,12 +74,9 @@ class PhotoDeleteView(PermissionRequiredMixin,DeleteView):
 class PhotoAddFavoritesView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         photo = get_object_or_404(Photo, pk=kwargs.get('pk'))
-        if request.user not in photo.who_likes.all():
-            photo.who_likes.add(request.user)
-            print("DEBUG")
-            print(photo)
-            photo.save()
-            return HttpResponse({'message': "Added"})
+        like, created = Favorites.objects.get_or_create(photo=photo, user=request.user)
+        if created:
+            return HttpResponse()
         else:
             return HttpResponseForbidden()
 
@@ -83,11 +84,9 @@ class PhotoAddFavoritesView(LoginRequiredMixin, View):
 class PhotoRemoveFavoritesView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         photo = get_object_or_404(Photo, pk=kwargs.get('pk'))
-        if request.user in photo.who_likes.all():
-            photo.who_likes.remove(request.user)
-            print("DEBUG")
-            print(photo)
-            photo.save()
-            return HttpResponse({'message': "Removed"})
-        else:
-            return HttpResponseForbidden()
+        like = get_object_or_404(photo.likes, user=request.user)
+        like.delete()
+        photo.save()
+        return HttpResponse()
+
+

@@ -19,7 +19,10 @@
     <p>Фамилия: {{ user_obj.last_name }}</p>
     <p>Дата рождения: {{ user_obj.profile.birth_date|date:'d.m.Y' }}</p>
     <p>Почта: {{ user_obj.email }}</p>
-
-    <h2 class="text-center clear">Статьи автора:</h2>
-    {% include 'partial/article_list.html' %}
+<h4>Фотографии избранные</h4>
+     {%  for i in user_obj.photo_likes.all %}
+ <p>
+         <img src="{{ i.photo.photo.url }}" alt="img" width="250" height="250">
+         </p>
+    {% endfor %}
 {% endblock %}

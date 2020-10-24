@@ -8,7 +8,6 @@ class Photo(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
     author = models.ForeignKey(get_user_model(), on_delete=models.SET_DEFAULT, default=1,
                                related_name='photos', verbose_name='Автор')
-    who_likes = models.ManyToManyField(get_user_model(), related_name='photos_users',verbose_name='who_likes')
 
     def __str__(self):
         return f'{self.description}'
@@ -17,3 +16,16 @@ class Photo(models.Model):
         verbose_name = 'Фото'
         verbose_name_plural = 'Фоточки'
         ordering = ['-created_at']
+
+
+class Favorites(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE,
+                             related_name='photo_likes', verbose_name='Пользователь')
+    photo = models.ForeignKey('webapp.Photo',on_delete=models.CASCADE, related_name='likes', verbose_name='Фото')
+
+    def __str__(self):
+        return f'{self.user}'
+
+    class Meta:
+        verbose_name = 'Избранное'
+        verbose_name_plural = 'Избранные'
